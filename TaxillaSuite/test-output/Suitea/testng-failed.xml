@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Suitea]">
+  <test thread-count="5" name="SuiteaTest(failed)">
+    <classes>
+      <class name="com.taxilla.suitea.TenantBasedPartition">
+        <methods>
+          <include name="quit"/>
+          <include name="login" invocation-numbers="1 2"/>
+          <include name="init"/>
+          <include name="afterTest"/>
+        </methods>
+      </class> <!-- com.taxilla.suitea.TenantBasedPartition -->
+      <class name="com.taxilla.suitea.TestA">
+        <methods>
+          <include name="quit"/>
+          <include name="afterTest"/>
+          <include name="login" invocation-numbers="1 2"/>
+          <include name="init"/>
+        </methods>
+      </class> <!-- com.taxilla.suitea.TestA -->
+    </classes>
+  </test> <!-- SuiteaTest(failed) -->
+</suite> <!-- Failed suite [Suitea] -->
