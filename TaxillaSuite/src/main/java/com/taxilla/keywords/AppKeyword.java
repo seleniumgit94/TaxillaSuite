@@ -1,19 +1,46 @@
 package com.taxilla.keywords;
 
-import java.io.IOException;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
+import com.opencsv.CSVReader;
 import com.relevantcodes.extentreports.LogStatus;
+import com.taxilla.utilities.Constants;
+import com.taxilla.utilities.ExcelAPI;
+
 
 import junit.framework.Assert;
 
 public class AppKeyword extends GenericKeyword{
 	
 	private String srcBkey=null;
+	//private String[] str1=new String[30];
+	//private String[] str2=new String[30];
+	private List<String> WebTableList = new ArrayList<String>();
+	private List<String> InputFileList = new ArrayList<String>();
+	
 	
 
 	
@@ -52,7 +79,8 @@ public class AppKeyword extends GenericKeyword{
 	public void fileUpload() throws InterruptedException, IOException 
 	{
 		System.out.println("Uploading Input File");
-		 Runtime.getRuntime().exec(System.getProperty("user.dir")+"\\InputFile\\fup.exe");
+		//Runtime.getRuntime().exec(System.getProperty("user.dir")+"\\InputFile\\fup.exe");
+		 Runtime.getRuntime().exec(System.getProperty("user.dir")+"\\InputFile\\"+envprop.getProperty(objectKey));
 		
 	}
 	
@@ -304,8 +332,8 @@ public class AppKeyword extends GenericKeyword{
 	{
 		System.out.println("Check attached input file :- "+ envprop.getProperty(objectKey));
 		
-		String actualValue=  getobject(objectKey).getText();
-		String expectedValue=  data.get(dataKey);
+		String actualValue=getobject(objectKey).getText();
+		String expectedValue=data.get(dataKey);
 		System.out.println(actualValue);
 		System.out.println(expectedValue);
 		boolean attchmentStatus=verifyElement(actualValue,expectedValue);
@@ -548,6 +576,327 @@ public class AppKeyword extends GenericKeyword{
 		 	return result;
 	      
 	}
+	
+	public boolean verifyEntitiesList() throws InterruptedException, IOException
+	{
+		System.out.println("Verify whether user is able to get the page to give the data for entities");
+		
+		 String actualValue=Boolean.toString(driver.getPageSource().contains(envprop.getProperty(objectKey)));
+		 String expectedValue="true";
+		 System.out.println(actualValue);
+		 System.out.println(expectedValue);
+		 boolean entityList=verifyElement(actualValue,expectedValue);
+		 
+		 if(!entityList)
+			{
+				reportFailure("User is not getting the page to check the data for Entities","YES");
+				throw new RuntimeException("User is not getting the page to check the data for Entities");
+							
+			}
+			else
+			{
+				reportSuccess("User is getting the page to check the data for Entities","YES");
+				
+			}
+		return entityList;
+	}
+	
+	public boolean validateFieldsExistence() throws InterruptedException, IOException
+	{
+		System.out.println("Verify whether user is able to get the fields in UI after clicking on entity");
+		
+		 String actualValue=Boolean.toString(driver.getPageSource().contains(envprop.getProperty(objectKey)));
+		 String expectedValue="true";
+		 System.out.println(actualValue);
+		 System.out.println(expectedValue);
+		 boolean fieldsExistence=verifyElement(actualValue,expectedValue);
+		 
+		 if(!fieldsExistence)
+			{
+				reportFailure("User is not getting the fields in UI after clicking on entity","YES");
+				throw new RuntimeException("User is not getting the fields in UI after clicking on entity");
+							
+			}
+			else
+			{
+				reportSuccess("User is getting the fields in UI after clicking on entity","YES");
+				
+			}
+		return fieldsExistence;
+	}
+	
+	public boolean verifySelectDropdown() throws InterruptedException, IOException
+	{
+		System.out.println("Verify whether user is able to get the dropdown to select fields");
+		
+		 String actualValue=Boolean.toString(driver.getPageSource().contains(envprop.getProperty(objectKey)));
+		 String expectedValue="true";
+		 System.out.println(actualValue);
+		 System.out.println(expectedValue);
+		 boolean selectDropdown=verifyElement(actualValue,expectedValue);
+		 
+		 if(!selectDropdown)
+			{
+				reportFailure("Dropdown is not getting displayed to select fields","YES");
+				throw new RuntimeException("Dropdown is not getting displayed to select fields");
+							
+			}
+			else
+			{
+				reportSuccess("Dropdown is getting displayed to select fields","YES");
+				
+			}
+		return selectDropdown;
+	}
+	public void GetNonPrimaryEntityData() throws Exception
+	{
+		WebTableList.clear();
+		System.out.println("Get data in Non primary entity");
+		List<WebElement> tr_collection =  driver.findElements(By.xpath(envprop.getProperty(objectKey)));
+		System.out.println("Number of rows in this table="+tr_collection.size());
+				
+		int row_num,col_num;
+		row_num=1;
+		
+		
+		for(WebElement trElement:tr_collection)
+		{
+			
+			List<WebElement> td_collection =  trElement.findElements(By.xpath("td"));
+			col_num=1;
+			
+			
+			for(WebElement tdElement:td_collection)
+			{
+				if(row_num<tr_collection.size()) 
+				if(col_num>1 && col_num<5 && row_num>6) 
+				{
+					
+			   System.out.println("Row # "+row_num+",col #"+col_num+",Text="+tdElement.getText());
+					// System.out.println(tdElement.getText());
+				
+				 
+			   WebTableList.add(tdElement.getText());
+				
+	 			
+				}
+				
+			col_num++;
+			}
+			row_num++;
+				
+		}
+		System.out.println("string value="+WebTableList);
+		
+		
+	}
+	@Test
+	public void readExcelData() throws Exception
+	{
+		InputFileList.clear();
+		System.out.println("Read Data from Excel File");	
+		System.out.println(prop.getProperty(testName+"_xlsx"));		
+		
+		ExcelAPI  excelInputData=new ExcelAPI(prop.getProperty(testName+"_xlsx"));		
+		
+
+		int excelRows = excelInputData.getRowCount(Constants.PERSONAL_SHEET);
+		System.out.println("Rows :" + excelRows);
+		int excelCols = excelInputData.columnCount(Constants.PERSONAL_SHEET);
+		System.out.println("Columns :" + excelCols);
+		
+		for(int rNum=1;rNum<excelRows;rNum++)
+		{
+			for(int cNum=0;cNum<excelCols;cNum++) 
+			{
+			String personal = excelInputData.getCellData(Constants.PERSONAL_SHEET, cNum, rNum);
+			System.out.println(personal);
+			
+			InputFileList.add(personal);
+			
+			}
+		}
+		
+	}
+	
+	
+	public void validateUploadData() throws IOException
+	{   
+		System.out.println(WebTableList);
+		System.out.println(InputFileList);
+				
+		 if( WebTableList.size() == InputFileList.size())
+	        {
+	            for(int i=0;i<WebTableList.size();++i)
+	            {
+	                if(!(WebTableList.get(i).equals(InputFileList.get(i))))
+	                {
+	                  System.out.println("Fail");  
+	                  InputFileList.clear();
+	                  WebTableList.clear();
+	                  softassert.assertTrue(false);
+	                  reportFailure("Input file data and uploaded data is not same ","YES");
+	               	                	               
+	  				//throw new RuntimeException("Input file data and uploaded data is not same");
+	                }
+	            }
+	        }
+	        else
+	        {
+	            System.out.println("Invalid Data");
+	            InputFileList.clear();
+	            WebTableList.clear();
+	            softassert.assertTrue(false);
+	            reportFailure("Invalid data ","YES");
+  				//throw new RuntimeException("invalid data size");
+	           
+	            
+                
+	        }
+	        System.out.println("Pass");
+	        InputFileList.clear();
+	        WebTableList.clear();
+	        reportSuccess("Input file data and uploaded data is same","YES");
+	    }
+	
+	
+	public void readXMLData() throws ParserConfigurationException, SAXException, IOException 
+	{
+		InputFileList.clear();
+		DocumentBuilderFactory dBfactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = dBfactory.newDocumentBuilder();
+		// Fetch XML File
+		Document document = builder.parse(new File(prop.getProperty(testName+"_xml")));
+		//Document document = builder.parse(new File("C:\\Users\\user\\eclipse-workspace\\TaxillaSuite\\InputFile\\InboundTestSuiteA_InputFiles\\xml_asset.xml"));
+		document.getDocumentElement().normalize();
+		//Get root node
+		Element root = document.getDocumentElement();
+		NodeList nList = document.getElementsByTagName("entity2");
+		//List<String> StrList3 = new ArrayList<String>();
+		for (int i = 0; i < nList.getLength(); i++)
+		{
+			Node node = nList.item(i);
+			System.out.println();    //Just a separator
+			if (node.getNodeType() == Node.ELEMENT_NODE)
+			{
+				
+				Element element = (Element) node;
+				
+				//System.out.println("field1 : "  + element.getElementsByTagName("f1").item(0).getTextContent());
+				//System.out.println("field2 : "   + element.getElementsByTagName("f2").item(0).getTextContent());
+				
+				//str3[j++]=element.getElementsByTagName("f1").item(0).getTextContent();
+				//str3[j++]=element.getElementsByTagName("f2").item(0).getTextContent();
+				
+				InputFileList.add(element.getElementsByTagName("f1").item(0).getTextContent());
+				InputFileList.add(element.getElementsByTagName("f2").item(0).getTextContent());
+				InputFileList.add(element.getElementsByTagName("f3").item(0).getTextContent());
+				 
+				
+			}
+			
+		}
+		 System.out.println(InputFileList);		
+		
+		
+	}
+	
+	public void readJSONData()  
+	{
+		 InputFileList.clear();
+         JSONParser parser = new JSONParser();
+	      try {
+	    	  Object obj = parser.parse(new FileReader(prop.getProperty(testName+"_json")));
+	    	 JSONArray RootArrayObject = (JSONArray)obj;
+	    	 JSONObject Root = (JSONObject) RootArrayObject.get(0); 
+	         String f1 = (String)Root.get("errorCode");
+	         String f2 = (String)Root.get("success");
+	         JSONArray SubEntityObject = (JSONArray)Root.get("result");
+	        // System.out.println("Name: " + f1);
+	        // System.out.println("Course: " + f2);
+	        // System.out.println("result:");
+	         //List<String> JsonList = new ArrayList<String>();
+	         for(int j=0;j<SubEntityObject.size();j++)
+	         {
+	        	 JSONObject SubEntity = (JSONObject) SubEntityObject.get(j); 
+	        	 
+	        	 InputFileList.add((String) SubEntity.get("stjCd"));
+	        	 InputFileList.add((String) SubEntity.get("dty"));
+	        	 InputFileList.add((String) SubEntity.get("lgnm"));
+	        	 
+	        	 
+	        	 //String sf1 = (String) SubEntity.get("stjCd");
+	        	 //String sf2 = (String) SubEntity.get("dty");
+	        	 //String sf3 = (String) SubEntity.get("lgnm");
+	        	// System.out.println(sf1);
+	        	// System.out.println(sf2);
+	        	 //System.out.println(sf3);
+	         }
+	         System.out.println(InputFileList);
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      }
+	}
+	
+
+	public void readCSVData() throws IOException  
+	{
+		 InputFileList.clear();
+         
+		 //Instantiating the CSVReader class
+	       CSVReader reader = new CSVReader(new FileReader(prop.getProperty(testName+"_csv")));
+	       String line[];
+	       Boolean FirstRecord=true;
+	      // List<String> CsvList = new ArrayList<String>();
+	      while ((line = reader.readNext()) != null) {
+	    	  if (FirstRecord!=true) {
+	         for(int i = 0; i<line.length; i++) 
+	         {
+	        	
+	        	
+	        	 InputFileList.add(line[i]);
+	        	 
+	          }
+	        
+	         
+	      } else
+	      {
+	    	  FirstRecord=false;
+	      }
+	    	  
+	      }
+	      System.out.println(InputFileList);
+	}
+	
+	
+	
+	public void readTXTData() throws IOException  
+	{      InputFileList.clear();
+		 //Instantiating the CSVReader class
+		   CSVReader reader = new CSVReader(new FileReader(prop.getProperty(testName+"_txt")));
+	       String line[];
+	       Boolean FirstRecord=true;
+	      // List<String> CsvList = new ArrayList<String>();
+	      while ((line = reader.readNext()) != null) {
+	    	  if (FirstRecord!=true) {
+	         for(int i = 0; i<line.length; i++) 
+	         {
+	        	
+	        	
+	        	 InputFileList.add(line[i]);
+	        	 
+	          }
+	        
+	         
+	      } else
+	      {
+	    	  FirstRecord=false;
+	      }
+	    	  
+	      }
+	      System.out.println(InputFileList);
+	}
+	
 	
 	
 

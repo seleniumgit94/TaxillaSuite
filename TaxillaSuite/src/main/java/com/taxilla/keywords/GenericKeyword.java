@@ -21,6 +21,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.BeforeMethod;
+import org.testng.asserts.SoftAssert;
 
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
@@ -40,6 +41,7 @@ public class GenericKeyword {
 	public Hashtable<String, String> data;
 	public WebDriver driver;
 	private static final Logger log=Logger.getLogger(GenericKeyword.class);
+	public SoftAssert softassert;
 	
 	
 	
@@ -98,6 +100,12 @@ public class GenericKeyword {
 			this.testName = testName;
 		}
 		
+		//Set SoftAsserts
+		
+		public void setSoftAssert(SoftAssert softassert) {
+			this.softassert = softassert;
+			
+		}
 
 	public void openBrowser() throws InterruptedException
 	{

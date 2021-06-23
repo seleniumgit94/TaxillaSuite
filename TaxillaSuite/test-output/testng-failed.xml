@@ -3,14 +3,14 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.taxilla.suitea.TenantBasedPartition">
+      <class name="com.taxilla.suitea.InboundTest">
         <methods>
           <include name="quit"/>
-          <include name="login" invocation-numbers="0"/>
-          <include name="init"/>
           <include name="afterTest"/>
+          <include name="inboundtest" invocation-numbers="0 1 2"/>
+          <include name="init"/>
         </methods>
-      </class> <!-- com.taxilla.suitea.TenantBasedPartition -->
+      </class> <!-- com.taxilla.suitea.InboundTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rootentity>	
+	<entity1>
+		<f1>e1-xmltest-19</f1>		
+		<f2>e1-field12</f2>			
+	</entity1>
+<entity2>
+		<f1>e2-xmltest-001</f1>		
+		<f2>e2-field1</f2>
+		<f3>e2-field11</f3>		
+	</entity2>
+<entity2>
+		<f1>e2-xmltest-002</f1>		
+		<f2>e2-field2</f2>
+		<f3>e2-field22</f3>		
+	</entity2>
+	<entity2>
+		<f1>e2-xmltest-003</f1>		
+		<f2>e2-field3</f2>
+		<f3>e2-field33</f3>		
+	</entity2>
+</rootentity>		

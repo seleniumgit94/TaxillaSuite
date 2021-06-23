@@ -5,6 +5,8 @@ import java.lang.reflect.Method;
 import java.util.Hashtable;
 import java.util.Properties;
 
+import org.testng.asserts.SoftAssert;
+
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.taxilla.keywords.AppKeyword;
@@ -19,6 +21,7 @@ public class DriverScript {
 	ExtentTest test;
 	AppKeyword app;
 	String testName;
+	SoftAssert softassert;
 	
 	public Properties getEnvprop() {
 		return envprop;
@@ -59,6 +62,12 @@ public class DriverScript {
 	public void setTestName(String testName) {
 		this.testName = testName;
 	}
+	
+	//Set SoftAsserts
+	
+	public void setSoftAssert(SoftAssert softassert) {
+		this.softassert = softassert;
+	}
 
 
 	
@@ -84,8 +93,8 @@ public class DriverScript {
 				app.setExtentReport(report);
 				app.setExtentTest(test);
 				app.setTestName(testName);
-				
-				
+		//send the softassert to keyword class	
+				app.setSoftAssert(softassert);
 		
 		for(int rNum=1;rNum<rows;rNum++)
 		{

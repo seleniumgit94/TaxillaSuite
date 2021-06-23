@@ -30,7 +30,7 @@ public class TenantBasedPartition extends BaseClass
 	  {  
 		  if(data.get(Constants.RUNMODE_COL).equals(Constants.RUNMODE_NO))
 			  throw new SkipException("Run mode is set to NO");
-		  System.out.println("Login Test");  
+		  System.out.println("TenantBasedPartition");  
 		// System.out.println(xls.getRowCount("Keywords"));
 		 // ds=new DriverScript();
 		  try {

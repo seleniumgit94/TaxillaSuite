@@ -17,7 +17,7 @@ import org.openqa.selenium.io.FileHandler;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
-
+import org.testng.asserts.SoftAssert;
 
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
@@ -39,6 +39,7 @@ public class BaseClass {
 	public DriverScript ds;
 	public  ExtentReports report;
 	public  ExtentTest test;
+	public  SoftAssert softassert= new SoftAssert(); 
 		
 		 @BeforeTest
 		  public void init() throws Exception 
@@ -86,11 +87,15 @@ public class BaseClass {
 			  //xls=new ExcelAPI(envprop.getProperty("suitea_xls"));
 			  System.out.println(prop.getProperty(suiteName+"_xls"));
 			  xls=new ExcelAPI(prop.getProperty(suiteName+"_xls"));
+			// ExcelAPI  excelInputData=new ExcelAPI(prop.getProperty(testName+"_xls"));
 			  
 			  //initilize object for driver script class
 			  ds=new DriverScript();
 			  ds.setEnvprop(envprop);
 			  ds.setProp(prop);
+			  ds.setSoftAssert(softassert);
+			  
+			  
 			  
 			  
 			 	

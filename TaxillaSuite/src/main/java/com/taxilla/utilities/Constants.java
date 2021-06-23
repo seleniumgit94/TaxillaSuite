@@ -12,5 +12,8 @@ public class Constants {
 	public static final String RUNMODE_COL="Runmode";
 	public static final String RUNMODE_NO="N";
 	public static final String RUNMODE_YES="Y";
+	
+	public static final String PERSONAL_SHEET="Personal Information";
+	public static final int PERSONAL_COL=0;
 
 }

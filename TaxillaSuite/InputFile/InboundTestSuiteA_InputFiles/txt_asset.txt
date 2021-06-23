@@ -1,0 +1,3 @@
+empno,ename,sal
+1a,ramesh,1k
+2,suman,2kk
