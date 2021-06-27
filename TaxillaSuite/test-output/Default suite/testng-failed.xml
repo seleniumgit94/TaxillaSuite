@@ -7,7 +7,7 @@
         <methods>
           <include name="quit"/>
           <include name="afterTest"/>
-          <include name="inboundtest" invocation-numbers="0 1 2"/>
+          <include name="inboundtest"/>
           <include name="init"/>
         </methods>
       </class> <!-- com.taxilla.suitea.InboundTest -->
