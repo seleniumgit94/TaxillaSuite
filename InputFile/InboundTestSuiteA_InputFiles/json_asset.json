@@ -1,5 +1,5 @@
 [{
-   "errorCode":"108",
+   "errorCode":"107",
    "success":"test",
    "result":[{
       "stjCd":"TN001",
@@ -17,7 +17,7 @@
    "message":"Search taxpayer is completed successfully"
 },
 {
-   "errorCode":"109",
+   "errorCode":"108",
    "success":"test",
    "result":{
       "stjCd":"TN001",

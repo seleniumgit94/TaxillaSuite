@@ -275,19 +275,29 @@ public class GenericKeyword {
 		  Date dt=new Date();
 		  SimpleDateFormat dateformat= new SimpleDateFormat("dd_MM_YYYY hh_mm_ss");
 		  File scrnshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		  FileHandler.copy(scrnshot, new File(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg"));
-		  test.log(LogStatus.INFO, "screenshot-->"+test.addScreenCapture(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg"));
-		  System.out.println(System.getProperty("user.dir")+"\\HTMLReports\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg");
-
+		 // FileHandler.copy(scrnshot, new File(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg"));
+		 // test.log(LogStatus.INFO, "screenshot-->"+test.addScreenCapture(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Success\\"+"img_"+dateformat.format(dt)+".jpeg"));
+		  FileHandler.copy(scrnshot, new File(System.getProperty("user.dir")+"\\job\\testTaxillaModules\\ws\\HTMLReports\\Screenshots\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg"));
+		
+		  
+		  test.log(LogStatus.INFO, "screenshot-->"+test.addScreenCapture(System.getProperty("user.dir")+"\\job\\testTaxillaModules\\ws\\HTMLReports\\Screenshots\\Success\\"+"img_"+dateformat.format(dt)+".jpeg"));
+		 
+		  
+		  System.out.println(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Success\\"+"img_"+dateformat.format(dt)+".jpeg");
+		
 		
 	}
 	public  void takeFailScreenshot() throws IOException {
 		  Date dt=new Date();
 		  SimpleDateFormat dateformat= new SimpleDateFormat("dd_MM_YYYY hh_mm_ss");
+		  
+		  
 		  File scrnshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		  FileHandler.copy(scrnshot, new File(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Failure\\"+"img1_"+dateformat.format(dt)+".jpeg"));
-		  test.log(LogStatus.INFO, "screenshot-->"+test.addScreenCapture(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Failure\\"+"img1_"+dateformat.format(dt)+".jpeg"));
-		  System.out.println(System.getProperty("user.dir")+"\\Failure\\"+"img1_"+dateformat.format(dt)+".jpeg");
+		  test.log(LogStatus.INFO, "screenshot-->"+test.addScreenCapture(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Failure\\"+"img_"+dateformat.format(dt)+".jpeg"));
+		 
+		  System.out.println(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Failure\\"+"img_"+dateformat.format(dt)+".jpeg");
+		  
 		  
 
 		
