@@ -277,8 +277,9 @@ public class GenericKeyword {
 		  File scrnshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		 // FileHandler.copy(scrnshot, new File(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg"));
 		  FileHandler.copy(scrnshot, new File(".\\HTMLReports\\Screenshots\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg"));
-		 // test.log(LogStatus.INFO, "screenshot-->"+test.addScreenCapture(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg"));
-		  test.log(LogStatus.INFO, "screenshot-->"+test.addScreenCapture("http://localhost:8080/job/testTaxillaModules/ws/"+"\\HTMLReports\\Screenshots\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg"));
+		  test.log(LogStatus.INFO, "screenshot-->"+test.addScreenCapture(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg"));
+		 
+		 // test.log(LogStatus.INFO, "screenshot-->"+test.addScreenCapture("http://localhost:8080/job/testTaxillaModules/ws/"+"\\HTMLReports\\Screenshots\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg"));
 		  
 		  System.out.println(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg");
 		
