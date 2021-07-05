@@ -23,6 +23,7 @@ public class DriverScript {
 	String testName;
 	SoftAssert softassert;
 	
+	
 	public Properties getEnvprop() {
 		return envprop;
 	}
@@ -68,6 +69,8 @@ public class DriverScript {
 	public void setSoftAssert(SoftAssert softassert) {
 		this.softassert = softassert;
 	}
+	
+
 
 
 	

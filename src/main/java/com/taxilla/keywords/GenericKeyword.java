@@ -20,6 +20,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeMethod;
 import org.testng.asserts.SoftAssert;
 
@@ -42,6 +43,8 @@ public class GenericKeyword {
 	public WebDriver driver;
 	private static final Logger log=Logger.getLogger(GenericKeyword.class);
 	public SoftAssert softassert;
+	
+
 	
 	
 	
@@ -106,6 +109,10 @@ public class GenericKeyword {
 			this.softassert = softassert;
 			
 		}
+		
+		
+		
+		
 
 	public void openBrowser() throws InterruptedException
 	{
@@ -123,6 +130,7 @@ public class GenericKeyword {
 		}
 		
 		driver.manage().window().maximize();
+		 
 		
 	}
 	
@@ -138,13 +146,17 @@ public class GenericKeyword {
 		
 		//test= report.startTest(testName);
 		
+		
+		
+		
 	}
 	
 	public void click() throws InterruptedException 
-	{
+	{   
 		System.out.println("clicking :- " + envprop.getProperty(objectKey));
 		//driver.findElement(By.xpath(envprop.getProperty(objectKey))).click();
 		getobject(objectKey).click();
+		
 		
 		
 	}
@@ -194,7 +206,8 @@ public class GenericKeyword {
 	public void Wait()
 	{
 		
-		 driver.manage().timeouts().implicitlyWait(Integer.parseInt(envprop.getProperty(objectKey)), TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Integer.parseInt(envprop.getProperty(objectKey)), TimeUnit.SECONDS);
+		 
           
 	}
 	
@@ -277,9 +290,9 @@ public class GenericKeyword {
 		  File scrnshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		 // FileHandler.copy(scrnshot, new File(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg"));
 		  FileHandler.copy(scrnshot, new File(".\\HTMLReports\\Screenshots\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg"));
-		  test.log(LogStatus.INFO, "screenshot-->"+test.addScreenCapture(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg"));
+		  //test.log(LogStatus.INFO, "screenshot-->"+test.addScreenCapture(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg"));
 		 
-		 // test.log(LogStatus.INFO, "screenshot-->"+test.addScreenCapture("http://localhost:8080/job/testTaxillaModules/ws/"+"\\HTMLReports\\Screenshots\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg"));
+		 test.log(LogStatus.INFO, "screenshot-->"+test.addScreenCapture("http://localhost:8080/job/testTaxillaModules/ws/"+"\\HTMLReports\\Screenshots\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg"));
 		  
 		  System.out.println(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Success\\"+"img1_"+dateformat.format(dt)+".jpeg");
 		
@@ -293,7 +306,8 @@ public class GenericKeyword {
 		  File scrnshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		  FileHandler.copy(scrnshot, new File(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Failure\\"+"img1_"+dateformat.format(dt)+".jpeg"));
 		  FileHandler.copy(scrnshot, new File(".\\HTMLReports\\Screenshots\\Failure\\"+"img1_"+dateformat.format(dt)+".jpeg"));
-		  test.log(LogStatus.INFO, "screenshot-->"+test.addScreenCapture(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Failure\\"+"img1_"+dateformat.format(dt)+".jpeg"));
+		//  test.log(LogStatus.INFO, "screenshot-->"+test.addScreenCapture(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Failure\\"+"img1_"+dateformat.format(dt)+".jpeg"));
+		  test.log(LogStatus.INFO, "screenshot-->"+test.addScreenCapture("http://localhost:8080/job/testTaxillaModules/ws/"+"\\HTMLReports\\Screenshots\\Failure\\"+"img1_"+dateformat.format(dt)+".jpeg"));
 		 
 		  System.out.println(System.getProperty("user.dir")+"\\HTMLReports\\Screenshots\\Failure\\"+"img1_"+dateformat.format(dt)+".jpeg");
 		  

@@ -39,6 +39,7 @@ public class BaseClass {
 	public DriverScript ds;
 	public  ExtentReports report;
 	public  ExtentTest test;
+	
 	public  SoftAssert softassert= new SoftAssert(); 
 		
 		 @BeforeTest
@@ -67,8 +68,10 @@ public class BaseClass {
 			  envprop=new Properties();
 			  envprop.load(fis);
 			  String e=envprop.getProperty("env");
+			 
 			  
 			  System.out.println(e);
+			  
 			  fis=new FileInputStream(Projectpath+"\\resources\\"+e+".properties"); 
 			  prop=new Properties(); 
 			  prop.load(fis); 
@@ -93,6 +96,7 @@ public class BaseClass {
 			  ds=new DriverScript();
 			  ds.setEnvprop(envprop);
 			  ds.setProp(prop);
+			  
 			  ds.setSoftAssert(softassert);
 			  
 			  
@@ -100,8 +104,8 @@ public class BaseClass {
 			  
 			 	
 			  //Extent Report configuration
-			 Date dt=new Date();
-				String filepath= dt.toString().replace(":","_").replace(" ","_")+".html";
+			// Date dt=new Date();
+				//String filepath= dt.toString().replace(":","_").replace(" ","_")+".html";
 			   // report =new ExtentReports(Projectpath+"//HTMLReports//"+filepath,false);
 		       // report.loadConfig(new File(Projectpath+"//extentconfigreport.xml//"));
 		       // report.addSystemInfo("selenium", "3.11.0").addSystemInfo("Environment","information");

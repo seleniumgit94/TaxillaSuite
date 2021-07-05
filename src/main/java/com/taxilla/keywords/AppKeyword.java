@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,6 +18,8 @@ import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import org.w3c.dom.Document;
@@ -91,6 +94,7 @@ public class AppKeyword extends GenericKeyword{
 		
 	public boolean validateTitle() throws InterruptedException, IOException
 	{
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		System.out.println("Validate Title :- "+ envprop.getProperty(objectKey));
 		//log.info("Navigate to url: "+ prop.getProperty(objectKey));
 		String actualValue=driver.getTitle();
@@ -138,7 +142,11 @@ public class AppKeyword extends GenericKeyword{
 	
 	public boolean verifyElementEditable() throws InterruptedException, IOException
 	{
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		System.out.println("Check the Element is enabled/editable ");
+		
+		
+		
 		 String actualValue=Boolean.toString(getobject(objectKey).isEnabled());
 		 String expectedValue="true";
 		 System.out.println(actualValue);
